@@ -7,6 +7,7 @@ import { GOOGLE_MAPS_APIKEY } from '@env'
 import { useDispatch } from 'react-redux';
 import { setDestination } from '../slices/navSlice';
 import { useNavigation } from '@react-navigation/native';
+import NavFavorites from './NavFavorites';
 
 const NavigateCard = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const NavigateCard = () => {
 
   return (
     <SafeAreaView style={tw`bg-white flex-1`}>
-      <Text style={tw`text-center py-5 text-lg`}>Chose your Destination:</Text>
+      <Text style={tw`text-center py-2 text-lg`}>Chose your Destination:</Text>
       <View style={tw`border-t border-gray-300 flex-shrink`}>
         <View>
           <GooglePlacesAutocomplete
@@ -39,6 +40,7 @@ const NavigateCard = () => {
             }}
           />
         </View>
+        <NavFavorites />
       </View>
     </SafeAreaView>
   )
