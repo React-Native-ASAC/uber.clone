@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import tw from 'tailwind-react-native-classnames';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_MAPS_APIKEY } from '@env';
 import { useDispatch } from 'react-redux';
@@ -9,6 +8,7 @@ import { setDestination } from '../slices/navSlice';
 import { useNavigation } from '@react-navigation/native';
 import NavFavorites from './NavFavorites';
 import { Icon } from 'react-native-elements';
+import tw from 'tailwind-react-native-classnames';
 
 const NavigateCard = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const NavigateCard = () => {
 
   return (
     <SafeAreaView style={distination.weeed}>
-      <Text style={tw`text-center py-2 text-xl`}>Chose your Destination:</Text>
+      <Text style={tw`text-center py-2 text-xl font-semibold`}>Chose your Destination:</Text>
       <View style={tw`border-t border-gray-300 flex-shrink`}>
         <View>
           <GooglePlacesAutocomplete
@@ -50,22 +50,28 @@ const NavigateCard = () => {
         style={tw`flex-row bg-white justify-evenly py-2 mt-auto border-t border-gray-100`}
       >
         <TouchableOpacity
-          onPress={()=>navigation.navigate('RideOptionCard')}
-          style={tw`flex flex-row justify-between bg-black w-24 px-4 py-3 rounded-full`}
+          onPress={() => navigation.navigate('RideOptionCard')}
+          style={tw`flex flex-row justify-between bg-blue-600 w-24 px-4 py-3 rounded-full`}
         >
-          <Icon name="car" type="font-awesome" color="white" size={16} />
+          <Icon
+            name="car"
+            type="font-awesome"
+            color="white"
+            size={16}
+          />
           <Text style={tw`text-white text-center`}>Rides</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
-          style={tw`flex flex-row justify-between w-24 px-4 py-3 rounded-full`}
+          style={tw`flex flex-row justify-between bg-red-400 w-24 px-4 py-3 rounded-full`}
         >
           <Icon
             name="fast-food-outline"
             type="ionicon"
-            color="black"
+            color="white"
             size={16}
           />
-          <Text style={tw`text-center`}>Eats</Text>
+          <Text style={tw`text-white text-center`}>Eats</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -91,8 +97,8 @@ const distination = StyleSheet.create({
   },
 
   weeed: {
-    flex:1,
-    backgroundColor:'white',
+    flex: 1,
+    backgroundColor: 'white',
     paddingTop: -50
   },
 });
