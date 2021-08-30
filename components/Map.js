@@ -41,6 +41,7 @@ const Map = () => {
   }, [origin, destination, GOOGLE_MAPS_APIKEY]);
 
   return (
+    
     <MapView
       ref={mapRef}
       style={tw`flex-1`}
