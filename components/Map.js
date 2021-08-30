@@ -1,16 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { useSelector,useDispatch } from 'react-redux';
-import {
-  selectOrigin,
-  selectDestination,
-  setTravelTimeInformation,
-} from '../slices/navSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectOrigin, selectDestination, setTravelTimeInformation, } from '../slices/navSlice';
 import MapViewDirections from 'react-native-maps-directions';
 import { GOOGLE_MAPS_APIKEY } from '@env';
-import tw from 'tailwind-react-native-classnames';
 import axios from 'axios';
+import tw from 'tailwind-react-native-classnames';
 
 const Map = () => {
   const origin = useSelector(selectOrigin);
@@ -41,7 +37,7 @@ const Map = () => {
   }, [origin, destination, GOOGLE_MAPS_APIKEY]);
 
   return (
-    
+
     <MapView
       ref={mapRef}
       style={tw`flex-1`}

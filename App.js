@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
-import { Provider } from 'react-redux';
-import HomeScreen from './screens/HomeScreen';
 import { store } from './store';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
 
 export default function App() {

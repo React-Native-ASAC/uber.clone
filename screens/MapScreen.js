@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Map from '../components/Map';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NavigateCard from '../components/NavigateCard';
@@ -11,17 +11,19 @@ import { useNavigation } from '@react-navigation/native';
 const MapScreen = () => {
   const Stack = createNativeStackNavigator();
   const navigation = useNavigation();
+
   return (
     <View >
       <TouchableOpacity style={tw`bg-gray-100 absolute top-14 left-8 z-50 rounded-full shadow-xl`}
         onPress={() => navigation.navigate('HomeScreen')}
       >
-        <Icon style={tw`w-10 h-10 top-2`} name="menu" />
+        <Icon size={35} name="menu" />
       </TouchableOpacity>
 
       <View style={tw`h-1/2`}>
         <Map />
       </View>
+
       <View style={tw`h-1/2`}>
         <Stack.Navigator>
           <Stack.Screen
