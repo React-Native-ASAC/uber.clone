@@ -1,16 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native'
 import tw from 'tailwind-react-native-classnames';
 import Map from '../components/Map';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NavigateCard from '../components/NavigateCard';
 import RideOptionsCard from '../components/RideOptionsCard';
+import { Icon } from 'react-native-elements';
 
 const MapScreen = () => {
   const Stack = createNativeStackNavigator();
 
   return (
-    <View >
+    <SafeAreaView >
       <View style={tw`h-1/2`}>
         <Map />
       </View>
@@ -28,7 +29,7 @@ const MapScreen = () => {
           />
         </Stack.Navigator>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
