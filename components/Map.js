@@ -1,29 +1,50 @@
-import React, { useEffect, useRef } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import MapView, { Marker } from 'react-native-maps'
-import { useSelector } from 'react-redux';
-import { selectOrigin, selectDestination } from '../slices/navSlice';
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import { useSelector,useDispatch } from 'react-redux';
+import {
+  selectOrigin,
+  selectDestination,
+  setTravelTimeInformation,
+} from '../slices/navSlice';
 import MapViewDirections from 'react-native-maps-directions';
-import { GOOGLE_MAPS_APIKEY } from '@env'
+import { GOOGLE_MAPS_APIKEY } from '@env';
 import tw from 'tailwind-react-native-classnames';
+import axios from 'axios';
 
 const Map = () => {
-  const origin = useSelector(selectOrigin)
-  const destination = useSelector(selectDestination)
+  const origin = useSelector(selectOrigin);
+  const destination = useSelector(selectDestination);
   const mapRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!origin || !destination) return;
     mapRef.current.fitToSuppliedMarkers(['origin', 'destination'], {
-      edgePadding: { top: 50, right: 50, left: 50, bottom: 50 }
+      edgePadding: { top: 50, right: 50, left: 50, bottom: 50 },
     });
-  }, [origin, destination])
+  }, [origin, destination]);
+
+  useEffect(() => {
+    if (!origin || !destination) return;
+
+    const getTraveleTime = async () => {
+      const URL = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin.description}&destinations=${destination.description}&key=${GOOGLE_MAPS_APIKEY}`;
+
+      const res = await axios.get(URL);
+
+      const payload = res.data.rows[0].elements[0]
+      dispatch(setTravelTimeInformation(payload));
+    };
+
+    getTraveleTime();
+  }, [origin, destination, GOOGLE_MAPS_APIKEY]);
 
   return (
     <MapView
       ref={mapRef}
       style={tw`flex-1`}
-      mapType='mutedStandard'
+      mapType="mutedStandard"
       initialRegion={{
         latitude: origin.location.lat,
         longitude: origin.location.lng,
@@ -31,7 +52,6 @@ const Map = () => {
         longitudeDelta: 0.005,
       }}
     >
-
       {origin && destination && (
         <MapViewDirections
           origin={origin.description}
@@ -39,7 +59,7 @@ const Map = () => {
           apikey={GOOGLE_MAPS_APIKEY}
           lineDashPattern={[0]}
           strokeWidth={4}
-          strokeColor='red'
+          strokeColor="red"
         />
       )}
 
@@ -49,12 +69,11 @@ const Map = () => {
             latitude: origin.location.lat,
             longitude: origin.location.lng,
           }}
-          title='Origin'
+          title="Origin"
           description={origin.description}
-          identifier='origin'
+          identifier="origin"
         />
       )}
-
 
       {destination?.location && (
         <Marker
@@ -62,16 +81,15 @@ const Map = () => {
             latitude: destination.location.lat,
             longitude: destination.location.lng,
           }}
-          title='Destination'
+          title="Destination"
           description={destination.description}
-          identifier='destination'
+          identifier="destination"
         />
       )}
-
     </MapView>
-  )
-}
+  );
+};
 
-export default Map
+export default Map;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
