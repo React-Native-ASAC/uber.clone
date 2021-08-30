@@ -54,10 +54,11 @@ const HomeScreen = () => {
             language: 'en',
           }}
           nearbyPlacesAPI='GooglePlacesSearch'
-          debounce={400}
+          debounce={350}
         />
 
         <NavObtions />
+
         <NavFavorites />
       </View>
     </SafeAreaView>
